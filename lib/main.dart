@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'moedas_page.dart';
+import 'pages/moedas_page.dart';
 
 void main() {
   runApp(MeuAplicativo());

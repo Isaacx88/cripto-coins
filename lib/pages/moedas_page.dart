@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:crypto_app/pages/moedas_detalhes_page.dart';
 import 'package:crypto_app/repositories/moeda_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'models/moeda.dart';
+import '../models/moeda.dart';
 
 class MoedasPage extends StatefulWidget {
   const MoedasPage({Key? key}) : super(key: key);
@@ -45,7 +46,14 @@ class _MoedasPageState extends State<MoedasPage> {
     }
   }
 
-  mostrarDetalhes(Moeda moeda) {}
+  mostrarDetalhes(Moeda moeda) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => MoedasDetalhesPage(
+                  moeda: moeda,
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
