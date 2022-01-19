@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'pages/home_page.dart';
 import 'pages/moedas_page.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MeuAplicativo extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: MoedasPage(),
+      // home: MoedasPage(),
+      home: HomePage(),
     );
   }
 }
