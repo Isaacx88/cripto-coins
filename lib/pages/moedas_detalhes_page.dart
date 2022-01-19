@@ -19,6 +19,16 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   final _valor = TextEditingController();
   double quantidade = 0;
 
+  comprar() {
+    if (_form.currentState!.validate()) {
+      //salvar a compra
+
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Compra realizada com sucesso!")));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,16 +62,23 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
               ],
             ),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              child: Text(
-                "$quantidade ${widget.moeda.sigla}",
-                style: TextStyle(fontSize: 20, color: Colors.black87),
-              ),
-              margin: EdgeInsets.only(bottom: 24),
-            ),
-          ),
+
+          //Se a quantidade for maior que zero, mostra a sizedbox com o valor. Caso contrário, apenas um container vazio.
+          (quantidade > 0)
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    child: Text(
+                      "$quantidade ${widget.moeda.sigla}",
+                      style: TextStyle(fontSize: 20, color: Colors.black54),
+                    ),
+                    margin: EdgeInsets.fromLTRB(0, 24, 0, 24),
+                    alignment: Alignment.center,
+                  ),
+                )
+              : Container(
+                  margin: EdgeInsets.only(bottom: 24),
+                ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Form(
@@ -88,6 +105,35 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  setState(() {
+                    quantidade = (value.isEmpty)
+                        ? 0
+                        : double.parse(value) / widget.moeda.preco;
+                  });
+                },
+              ),
+            ),
+          ),
+
+          Container(
+            alignment: Alignment.bottomCenter,
+            margin: EdgeInsets.fromLTRB(12, 24, 12, 12),
+            child: ElevatedButton(
+              onPressed: comprar,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  Icon(Icons.check),
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      "Comprar",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
